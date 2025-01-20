@@ -17,7 +17,7 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 
 def generate_launch_description():
      return LaunchDescription([
-          DeclareLaunchArgument(name='use_jsp', default_value='gui',
+          DeclareLaunchArgument(name='use_jsp', default_value='jsp',
                                 choices=['gui', 'jsp', 'none'],
                                 description='Choose if joint_state_publisher is launched'),
           DeclareLaunchArgument(name='use_rviz', default_value='true',

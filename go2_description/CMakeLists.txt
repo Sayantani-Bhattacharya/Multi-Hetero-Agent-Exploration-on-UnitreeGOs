@@ -47,7 +47,7 @@ if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
 endif()
 
 install(DIRECTORY
-  launch config meshes xacro urdf
+  launch config meshes xacro urdf worlds
   DESTINATION share/${PROJECT_NAME}/
 )
 
