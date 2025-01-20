@@ -1,0 +1,3 @@
+{
+    "hooks": ["share/nubot/env-hooks/nubot.dsv"]
+}

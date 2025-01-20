@@ -1,0 +1,17 @@
+<launch>
+    <include file="$(find-pkg-share go1_description)/launch/simulate_go1.launch.xml">
+        <!-- <arg name="world" value="nubot_world.sdf"/> -->
+    </include>
+
+    <!-- Node for SLAM Toolbox in async mode -->
+    <include file="$(find-pkg-share slam_toolbox)/launch/online_async_launch.py">
+        <arg name="use_sim_time" value="true"/>
+        <arg name="params_file" value="$(find-pkg-share sim_nav)/config/slam_params_async.yaml"/>
+    </include>
+
+    <include file="$(find-pkg-share nav2_bringup)/launch/navigation_launch.py">
+        <arg name="use_sim_time" value="true"/>
+        <arg name="params_file" value="$(find-pkg-share sim_nav)/config/nav2_params.yaml"/>
+    </include>
+
+</launch>

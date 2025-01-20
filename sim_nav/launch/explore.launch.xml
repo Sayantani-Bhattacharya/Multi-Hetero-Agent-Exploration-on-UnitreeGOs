@@ -1,0 +1,9 @@
+<launch>
+
+    <include file="$(find-pkg-share sim_nav)/launch/manual_explore.launch.xml">
+            <!-- <arg name="world" value="nubot_world.sdf"/> -->
+        </include>
+
+    <node pkg="sim_nav" exec="explore" name="explore" />    
+
+</launch>

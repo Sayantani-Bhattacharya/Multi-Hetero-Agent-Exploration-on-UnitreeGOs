@@ -22,5 +22,5 @@ Run `ros2 launch go1_description load_go1.launch.py` to load the robot model.
 
 ## To simulate in Gazebo.
 
-Run `ros2 launch go1_description simulate.launch.xml` inside the Main repo.
+Run `ros2 launch go1_description simulate_go1.launch.xml` inside the Main repo.
 
