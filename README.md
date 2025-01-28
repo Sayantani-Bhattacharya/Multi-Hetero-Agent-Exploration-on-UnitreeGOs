@@ -42,6 +42,7 @@ fastest possible speed. Agents would be aware of each-other’s presence and wor
   - ROS2
   - Python
   - Unitree SDK - GO1 and GO2
+  - [Communication framework](https://github.com/NU-MECH-ENG-495/project-Sayantani-Bhattacharya)
   - Slam, RTabMap, gmapping and Nav2 pkg
 
 ### Reference repositories:
