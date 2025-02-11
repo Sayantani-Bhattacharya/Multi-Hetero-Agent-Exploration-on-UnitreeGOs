@@ -55,3 +55,31 @@ fastest possible speed. Agents would be aware of each-other’s presence and wor
   - Paper of 12 drone c-slam, with github code: http://arxiv.org/pdf/2108.05756 
   - C-SLAM subproblems such as map merging (Lee et al., 2012), practical implementations (Kshirsagar et al., 2018), particle filter techniques.
   - ICRA 2023: generalized back-end for c-slam https://www.youtube.com/watch?v=oypURkSuMc4 
+
+### ROS2-SDK setup for Unitree GO1
+ROS2 was set up by cloning and following the instructions for [this](https://github.com/unitreerobotics/unitree_ros2) repository. 
+
+
+# ROS2 Packages
+
+## `go1_description`
+Holds all the models for visualizing the Unitree Go1 in RViz and simulation in Gazebo.
+
+## `go2_description`
+Holds all the models for visualizing the Unitree Go2 in RViz and simulation in Gazebo.
+
+## `ros2_unitree_legged_msgs`
+Messages and services for controlling Unitree Go1.
+
+## `unitree_exploration`
+Frontier Exploration with the Unitree Go1. Takes in the map, finds frontiers and commands 2-D goal poses to the Nav Stack accordingly.
+
+## `unitree_kinematics`
+Library for kinematic calculations for controlling the Go1.
+
+## `unitree_nav`
+Package for code and launch files for running the Unitree Go1 in high level mode with ROS 2 Humble. 
+
+## `unitree_legged_real`
+Holds the launch files for Zed 2i camera nodes, controlling, visualisation and exploration of Unitree Go1.
+

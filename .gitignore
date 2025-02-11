@@ -1,0 +1,11 @@
+**/__pycache__/**
+**.pyc
+.vscode
+**.vscode
+__pycache__
+*.urdf
+todo.txt
+*.log
+install/
+build/
+log/

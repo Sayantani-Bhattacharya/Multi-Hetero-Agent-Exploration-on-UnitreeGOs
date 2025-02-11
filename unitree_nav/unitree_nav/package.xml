@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>unitree_nav</name>
+  <version>0.0.0</version>
+  <description>Navigation control for Unitree Go1</description>
+  <maintainer email="ngmorales97@gmail.com">Nick Morales</maintainer>
+  <license>Apache License 2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>ros2launch</depend>
+  <depend>rclcpp</depend>
+  <depend>rclcpp_action</depend>
+  <depend>std_srvs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>tf2</depend>
+  <depend>tf2_geometry_msgs</depend>
+  <depend>nav2_msgs</depend>
+  <depend>ros2_unitree_legged_msgs</depend>
+  <depend>unitree_nav_interfaces</depend>
+
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>rtabmap</exec_depend>
+  <exec_depend>rtabmap_ros</exec_depend>
+  <exec_depend>rslidar_sdk</exec_depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
