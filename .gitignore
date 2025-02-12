@@ -9,6 +9,8 @@ todo.txt
 install/
 build/
 log/
+Catch2/
+
 
 # Prerequisites
 *.d

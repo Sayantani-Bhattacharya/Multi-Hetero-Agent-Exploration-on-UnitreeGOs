@@ -14,6 +14,8 @@ We recommand users to run this package in Ubuntu 18.04 and ROS2 eloquent environ
 
 # Dependencies
 * [unitree_legged_sdk](https://github.com/unitreerobotics): v3.5.1
+* [zed_wrapper](https://github.com/stereolabs/zed-ros2-wrapper) : Follow the setup instructions as mentioned in its READMe and dont forget to source its workspace into this one.
+* [Catch2](https://github.com/catchorg/Catch2)
 
 # Configuration
 First, creat a directory.
