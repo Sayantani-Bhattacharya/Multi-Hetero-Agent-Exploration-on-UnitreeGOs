@@ -33,7 +33,7 @@ def generate_launch_description():
                                    'Choose a namespace for the launched topics.'),
 
           SetLaunchConfiguration(name='config_file',
-                                 value='go.rviz'),
+                                 value='go2.rviz'),
           SetLaunchConfiguration(name='model',
                                  value=PathJoinSubstitution([FindPackageShare('go2_description'),
                                                              'xacro',
