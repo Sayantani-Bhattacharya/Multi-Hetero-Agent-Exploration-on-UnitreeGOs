@@ -573,6 +573,24 @@ class Explore : public rclcpp::Node
                 mFrontiers.erase(std::remove(mFrontiers.begin(), mFrontiers.end(), mCurrGoalPose), mFrontiers.end());
                 bool detect_frontiers_again = false;
                 mCurrGoalPose = explore(detect_frontiers_again);
+                last_movement_time = this->now();
+            }
+            // Check if the robot has not moved for 10 minutes with the new goal
+            if ((this->now() - last_movement_time).seconds() > 12.0) {
+              RCLCPP_WARN(this->get_logger(), "[Explore] Robot has not moved for 12 seconds. Checking front space.");
+              // Check if the front space is free
+              int front_x = static_cast<int>(mCurrPose_wrt_map[0] + 2.5 / mMapResolution);  // thrust 0.5m in x direction
+              int front_y = static_cast<int>(mCurrPose_wrt_map[1]);
+              if (front_x >= 0 && front_x < mMapWidth && front_y >= 0 && front_y < mMapHeight && mMapGrid[front_y][front_x] == 0) {
+                RCLCPP_INFO(this->get_logger(), "[Explore] Front space is free. Moving 2 steps forward.");
+                mCurrGoalPose = {front_x * mMapResolution, front_y * mMapResolution};
+                } 
+              else {
+                RCLCPP_WARN(this->get_logger(), "[Explore] Front space is not free. Re-evaluating goal.");
+                mFrontiers.erase(std::remove(mFrontiers.begin(), mFrontiers.end(), mCurrGoalPose), mFrontiers.end());
+                bool detect_frontiers_again = false;
+                mCurrGoalPose = explore(detect_frontiers_again);
+              }
               last_movement_time = this->now();
             }
           }
