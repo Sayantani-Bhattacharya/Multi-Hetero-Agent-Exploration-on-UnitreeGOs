@@ -87,7 +87,7 @@ class Explore : public rclcpp::Node
     private:
       rclcpp::TimerBase::SharedPtr mTimer;
       State mRobotState = State::IDLE;
-      float mDiagonalTollerance = 0.3; // this is for goal reached.
+      float mDiagonalTollerance = 1.1; // this is for goal reached.
       std::pair<int,int> mCurrGoalPose = {-100, -100};
       std::vector<std::pair<int, int>> mFrontiers;
       int mMinExploreDistance = 0.7; // 8: out of bounds for nav pkg....no check again
@@ -555,8 +555,10 @@ class Explore : public rclcpp::Node
             // Check if the robot has not moved for a certain duration
             static rclcpp::Time last_movement_time = this->now();
             static std::vector<float> last_position = mCurrPose_wrt_map;
+            // float goalReachedHyp = std::hypot(mCurrGoalPose.first - mCurrPose_wrt_map[0], mCurrGoalPose.second - mCurrPose_wrt_map[1]);
 
-            if (mCurrPose_wrt_map != last_position) {
+            if (std::abs(mCurrPose_wrt_map[0] - last_position[0]) > 0.01 || std::abs(mCurrPose_wrt_map[1] - last_position[1]) > 0.01) {
+              RCLCPP_INFO(this->get_logger(), "[Explore] Robot actually moving.");
               last_movement_time = this->now();
               last_position = mCurrPose_wrt_map;
             }
