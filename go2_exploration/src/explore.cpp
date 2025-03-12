@@ -405,10 +405,14 @@ class Explore : public rclcpp::Node
 
       
       
-      std::pair<int,int> explore()
+      std::pair<int,int> explore(bool detect_frontiers_again = true)
       {
-        // Todo: add direction (yaw) calculation.
-        auto frontiers = detect_frontiers();
+        auto frontiers = mFrontiers;
+        if (detect_frontiers_again)
+        {
+          // Todo: add direction (yaw) calculation.
+          frontiers = detect_frontiers();
+        }
         // Find the Nearest frontier above the mMinExploreDistance.
         if (frontiers.empty()) 
         {
@@ -565,7 +569,10 @@ class Explore : public rclcpp::Node
 
             if ((this->now() - last_movement_time).seconds() > 5.0) {
               RCLCPP_WARN(this->get_logger(), "[Explore] Robot has not moved for 5 seconds. Re-evaluating goal.");
-              mCurrGoalPose = explore();
+                // Remove the current goal pose from the frontiers list
+                mFrontiers.erase(std::remove(mFrontiers.begin(), mFrontiers.end(), mCurrGoalPose), mFrontiers.end());
+                bool detect_frontiers_again = false;
+                mCurrGoalPose = explore(detect_frontiers_again);
               last_movement_time = this->now();
             }
           }
