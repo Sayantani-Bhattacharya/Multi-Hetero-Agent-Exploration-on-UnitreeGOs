@@ -195,25 +195,18 @@ class Explore : public rclcpp::Node
         RCLCPP_INFO(this->get_logger(), "Occupied cells: %i, Free cells: %i, Unknown cells: %i", count_100, count_0, count_neg1);
 
         // Printing unique vals:
-        std::string unique_vals_str;
-        for (int val : unique_values) 
-        {
-            unique_vals_str += std::to_string(val) + " ";
-        }
+        // std::string unique_vals_str;
+        // for (int val : unique_values) 
+        // {
+        //     unique_vals_str += std::to_string(val) + " ";
+        // }
         // RCLCPP_INFO(this->get_logger(), "Unique values in map: %s", unique_vals_str.c_str());
 
         detect_frontiers();
       }
 
-      // void curr_pose_sub_callback(const geometry_msgs::msg::PoseStamped msg)
-      // {
-      //   mCurrPose = msg;
-      //   RCLCPP_INFO(this->get_logger(), "Current pose received: x= %f, y= %f", msg.pose.position.x, msg.pose.position.y);
-      // }
-
       void publish_frontier_markers(std::vector<std::pair<int, int>> frontiers)
       {
-        //std::vector<std::pair<int, int>> frontiers
         if (frontiers.empty())
         {
           RCLCPP_INFO(this->get_logger(), "No frontiers to publish.");
@@ -300,15 +293,13 @@ class Explore : public rclcpp::Node
             # occupied: having an occupancy probability > prior probability   ----> 100
         */
         std::vector<std::pair<int, int>> frontiers;
-        // RCLCPP_INFO(this->get_logger(), "Map received: width= %f", mMapWidth);
-        // RCLCPP_INFO(this->get_logger(), "Map received: height= %f", mMapHeight);
         RCLCPP_INFO(this->get_logger(), "[Explore] Detecting frontier.");
         std::vector<std::vector<bool>> visited(mMapHeight, std::vector<bool>(mMapWidth, false));
 
         for (int r = 0; r < mMapHeight; ++r) {
             for (int c = 0; c < mMapWidth; ++c) {
                 // Check if the current cell is free space : changed the logic to current cell being not occupied and not detected as a frontier before. !!!!!!!!!!!!!!
-                if (mMapGrid[r][c] != 100 && !visited[r][c]) { // change this to mMapGrid[r][c] == 0 && later.!!!!!!!!!!
+                if (mMapGrid[r][c] != 100 && !visited[r][c]) { 
                     // Mark the cell as visited 
                     visited[r][c] = true;
 
@@ -322,8 +313,6 @@ class Explore : public rclcpp::Node
                                 // Add the current cell as a frontier
                                 // Convert to world coordinates.
                                 auto val = map_to_world(r, c);
-                                // fx = val.first;
-                                // fy = val.second;
                                 frontiers.emplace_back(val.first, val.second);
                                 break;
                             }
@@ -355,16 +344,8 @@ class Explore : public rclcpp::Node
           return {-100, -100}; // Return an invalid position if there are no frontiers
         }
         std::pair<int, int> nearest_frontier;
-        // double min_distance = std::numeric_limits<double>::max();
-        // const auto row;
-        // const auto col;
         for (auto& [fx, fy] : frontiers) {
-            // // Convert to world coordinates.
-            // auto val = map_to_world(fx, fy);
-            // fx = val.first;
-            // fy = val.second;
-            // Add the pose vals as printing -100, -100 here.
-
+            // Convert to world coordinates.
             double distance = std::hypot(fx - mCurrPose_wrt_map[0], fy - mCurrPose_wrt_map[1]); 
             RCLCPP_INFO(this->get_logger(), "[Explore] Nearest frontier would be calculated");
             RCLCPP_INFO(this->get_logger(), "[Explore] distnace , and threshold val: %d, %f", distance, mMinExploreDistance);
