@@ -1,0 +1,37 @@
+<svg width="816" height="1056">
+<line x1="508" y1="728" x2="408" y2="728" stroke="red" stroke-width="2" marker-start="url(#Arrow1Sstart)"/>
+<line x1="408" y1="628" x2="408" y2="728" stroke="green" stroke-width="2" marker-start="url(#Arrow1Sstart)"/>
+<text x="408" y="728">{a}</text>
+<line x1="408" y1="528" x2="408" y2="628" stroke="red" stroke-width="2" marker-start="url(#Arrow1Sstart)"/>
+<line x1="308" y1="628" x2="408" y2="628" stroke="green" stroke-width="2" marker-start="url(#Arrow1Sstart)"/>
+<text x="408" y="628">{b}</text>
+<line x1="208" y1="528" x2="308" y2="528" stroke="red" stroke-width="2" marker-start="url(#Arrow1Sstart)"/>
+<line x1="308" y1="628" x2="308" y2="528" stroke="green" stroke-width="2" marker-start="url(#Arrow1Sstart)"/>
+<text x="308" y="528">{c}</text>
+<circle cx="508" cy="628" r="5" stroke="purple" fill="purple" stroke-width="1"/>
+<circle cx="508" cy="628" r="5" stroke="brown" fill="brown" stroke-width="1"/>
+<circle cx="508" cy="628" r="5" stroke="orange" fill="orange" stroke-width="1"/>
+<line x1="337" y1="557" x2="408" y2="628" stroke="brown" stroke-width="2" marker-start="url(#Arrow1Sstart)"/>
+<line x1="308" y1="628" x2="408" y2="728" stroke="purple" stroke-width="2" marker-start="url(#Arrow1Sstart)"/>
+<line x1="208" y1="428" x2="308" y2="528" stroke="orange" stroke-width="2" marker-start="url(#Arrow1Sstart)"/>
+
+    <defs>
+    <marker
+        style="overflow:visible"
+        id="Arrow1Sstart"
+        refX="0.0"
+        refY="0.0"
+        orient="auto">
+        <path
+            transform="scale(0.2) translate(6,0)\"
+            style="fill-rule:evenodd;fill:context-stroke;stroke:context-stroke;stroke-width:1.0pt"
+            d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+            />
+        </marker>
+    </defs>
+
+    <g>
+    
+    </g>
+    
+</svg>
