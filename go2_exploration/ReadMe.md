@@ -10,7 +10,9 @@ Current(will try to reduce the steps):
     source /opt/ros/jazzy/setup.bash
     source install/setup.bash
 
-### Terminal 1:  [unitree_go2_nav]  -> run in [main_pkg]
+Terminal 1:  [unitree_go2_nav]  -> run in [main_pkg]
+# As a sanity check delete the previous map (rm ~/.ros/rtabmap.db)
+ros2 launch unitree_go2_nav navigation.launch.py
 The base launch file for transforms, robot-state, slam and manual navigation.
       
       ros2 launch unitree_go2_nav navigation.launch.py
@@ -19,16 +21,12 @@ The base launch file for transforms, robot-state, slam and manual navigation.
 ### Terminal 2: [main_pkg]
 This subscripes to map data by rtabmap pkg, and unitree topics, And solves for exploration goals.
 
-    ros2 run go2_exploration go2Exploration 
+<!-- Terminal 3: [unitree_go2_nav]
+ros2 run unitree_go2_nav navToPose
+This subscribes to nav pkg, and publishes to the high level controller of GO2. -->
 
-
-### Terminal 3: [unitree_go2_nav]
-This subscribes to nav pkg, and publishes to the high level controller of GO2.
-       
-       ros2 run unitree_go2_nav navToPose
-
-
-### Terminal 4: [unitree_ros]
+Terminal 4: [unitree_ros]
+./install/unitree_ros2_example/bin/high_level_ctrl 
 This publishes to Unitree APIs, final abstaction layer.
 
     ./install/unitree_ros2_example/bin/high_level_ctrl 

@@ -116,6 +116,8 @@ class Explore : public rclcpp::Node
       rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr frontier_marker_pub;
       rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr goal_marker_pub;
 
+      int goalChangeCounter = 0;
+
 
       void nav_start_trigger_callback(const std::shared_ptr<go2_exploration_interfaces::srv::Empty::Request> request, std::shared_ptr<go2_exploration_interfaces::srv::Empty::Response> response)
       {
@@ -335,75 +337,6 @@ class Explore : public rclcpp::Node
         RCLCPP_INFO(this->get_logger(), "[Explore] Frontiers detected: %i", frontiers.size());
         return frontiers;        
       }
-
-      // std::vector<std::pair<int, int>> detect_frontiers()
-      // {
-      //     /*
-      //     Occupancy grid is used to detect all the possible frontiers in the current map.
-      //     Occupancy Grids:
-      //         # open: having an occupancy probability < prior probability       ----> 0
-      //         # unknown: having an occupancy probability = prior probability    ----> -1
-      //         # occupied: having an occupancy probability > prior probability   ----> 100
-      //     */
-          
-      //     std::vector<std::pair<int, int>> frontiers;
-      //     RCLCPP_INFO(this->get_logger(), "[Explore] Detecting frontier.");
-      //     std::vector<std::vector<bool>> visited(mMapHeight, std::vector<bool>(mMapWidth, false));
-
-      //     // Robot's odometry position (should be set from actual odom data)
-      //     int odom_r = mCurrPose_wrt_map[0];
-      //     int odom_c = mCurrPose_wrt_map[1];
-      //     const int max_dist_threshold = 4; // Max cells away from curr pose to consider as frontiers
-      //     const int min_dist_threshold = 0.1;  // Min Manhattan distance between frontiers
-
-      //     for (int r = 0; r < mMapHeight; ++r) {
-      //         for (int c = 0; c < mMapWidth; ++c) {
-      //             // Check distance threshold from odometry
-      //             // Change this to mMapGrid[r][c] == 0 && later.!!!!!!!!!!
-      //             if (std::abs(r - odom_r) + std::abs(c - odom_c) > max_dist_threshold) {
-      //                 continue; // Skip if beyond max distance
-      //             }
-
-      //             // Check if the current cell is free space and not visited
-      //             // hange this to mMapGrid[r][c] == 0 && later.!!!!!!!!!!
-      //             if (mMapGrid[r][c] != 100 && !visited[r][c]) {
-      //                 visited[r][c] = true; // Mark as visited
-
-      //                 // Check if adjacent to at least one unknown cell
-      //                 for (const auto& [dr, dc] : std::vector<std::pair<int, int>>{
-      //                         {-1, 0}, {1, 0}, {0, -1}, {0, 1}, {-1, -1}, {-1, 1}, {1, -1}, {1, 1}})
-      //                 {
-      //                     int nr = r + dr, nc = c + dc;
-      //                     if (nr >= 0 && nr < mMapHeight && nc >= 0 && nc < mMapWidth) {
-      //                         if (mMapGrid[nr][nc] == -1) {
-      //                             // Ensure new frontier is not too close to an existing one
-      //                             bool too_close = false;
-      //                             for (const auto& [fr, fc] : frontiers) {
-      //                                 if (std::abs(fr - r) + std::abs(fc - c) < min_dist_threshold) {
-      //                                     too_close = true;
-      //                                     break;
-      //                                 }
-      //                             }
-
-      //                             if (!too_close) {
-      //                                 frontiers.emplace_back(r, c);
-      //                             }
-      //                             break;
-      //                         }
-      //                     }
-      //                 }
-      //             }
-      //         }
-      //     }
-          
-      //     mFrontiers = frontiers;
-      //     RCLCPP_INFO(this->get_logger(), "[Explore] Detection algo ended.");
-      //     RCLCPP_INFO(this->get_logger(), "[Explore] Frontiers detected: %i", frontiers.size());
-          
-      //     return frontiers;
-      // }
-
-      
       
       std::pair<int,int> explore(bool detect_frontiers_again = true)
       {
@@ -564,6 +497,7 @@ class Explore : public rclcpp::Node
             if (std::abs(mCurrPose_wrt_map[0] - last_position[0]) > 0.01 || std::abs(mCurrPose_wrt_map[1] - last_position[1]) > 0.01) {
               RCLCPP_INFO(this->get_logger(), "[Explore] Robot actually moving.");
               last_movement_time = this->now();
+              goalChangeCounter = 0;
               last_position = mCurrPose_wrt_map;
             }
 
@@ -573,25 +507,28 @@ class Explore : public rclcpp::Node
                 mFrontiers.erase(std::remove(mFrontiers.begin(), mFrontiers.end(), mCurrGoalPose), mFrontiers.end());
                 bool detect_frontiers_again = false;
                 mCurrGoalPose = explore(detect_frontiers_again);
+                goalChangeCounter++;
                 last_movement_time = this->now();
             }
             // Check if the robot has not moved for 10 minutes with the new goal
-            if ((this->now() - last_movement_time).seconds() > 12.0) {
+            // changed front thrust logic, timer causing issues.
+            // else if ((this->now() - last_movement_time).seconds() > 12.0) {
+            else if (goalChangeCounter > 2) {
               RCLCPP_WARN(this->get_logger(), "[Explore] Robot has not moved for 12 seconds. Checking front space.");
               // Check if the front space is free
-              int front_x = static_cast<int>(mCurrPose_wrt_map[0] + 2.5 / mMapResolution);  // thrust 0.5m in x direction
+              int front_x = static_cast<int>(mCurrPose_wrt_map[0] + 1.0 / mMapResolution);  // thrust 1.5m in x direction
               int front_y = static_cast<int>(mCurrPose_wrt_map[1]);
-              if (front_x >= 0 && front_x < mMapWidth && front_y >= 0 && front_y < mMapHeight && mMapGrid[front_y][front_x] == 0) {
-                RCLCPP_INFO(this->get_logger(), "[Explore] Front space is free. Moving 2 steps forward.");
+              // if (front_x >= 0 && front_x < mMapWidth && front_y >= 0 && front_y < mMapHeight && mMapGrid[front_y][front_x] == 0) {
+                RCLCPP_WARN(this->get_logger(), "[Explore] Front space is free. Moving 2 steps forward.");
                 mCurrGoalPose = {front_x * mMapResolution, front_y * mMapResolution};
-                } 
-              else {
-                RCLCPP_WARN(this->get_logger(), "[Explore] Front space is not free. Re-evaluating goal.");
-                mFrontiers.erase(std::remove(mFrontiers.begin(), mFrontiers.end(), mCurrGoalPose), mFrontiers.end());
-                bool detect_frontiers_again = false;
-                mCurrGoalPose = explore(detect_frontiers_again);
-              }
-              last_movement_time = this->now();
+                // } 
+              // else {
+              //   RCLCPP_WARN(this->get_logger(), "[Explore] Front space is not free. Re-evaluating goal.");
+              //   mFrontiers.erase(std::remove(mFrontiers.begin(), mFrontiers.end(), mCurrGoalPose), mFrontiers.end());
+              //   bool detect_frontiers_again = false;
+              //   mCurrGoalPose = explore(detect_frontiers_again);
+              // }
+              // last_movement_time = this->now();
             }
           }
           RCLCPP_INFO(this->get_logger(), "[Explore] Robot state: %d", static_cast<int>(mRobotState));
