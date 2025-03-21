@@ -1,0 +1,22 @@
+<launch>
+  <!-- <arg name="world" default="go2_world.sdf" /> -->           <!-- No default world settigs -->
+  <include file="$(find-pkg-share ros_gz_sim)/launch/gz_sim.launch.py">
+    <!-- <arg name="gz_args" value="-r $(var world)"/> -->          <!-- No default world settigs -->
+  </include>
+
+  <!-- Syntax: <gazebo_topic>@<ros2_msg_type>[<gazebo_msg_type> -->
+  <node pkg="ros_gz_bridge" exec="parameter_bridge"
+        args="/model/go2/odometry@nav_msgs/msg/Odometry[gz.msgs.Odometry
+              /model/go2/tf@tf2_msgs/msg/TFMessage[gz.msgs.Pose_V
+              /model/go2/cmd_vel@geometry_msgs/msg/Twist]gz.msgs.Twist
+              /scan@sensor_msgs/msg/LaserScan[gz.msgs.LaserScan
+              /world/go2_world/model/go2/joint_state@sensor_msgs/msg/JointState[gz.msgs.Model
+              /clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock"
+        >
+    <remap from="/model/go2/odometry" to="/odom" />
+    <remap from="/model/go2/cmd_vel" to="/cmd_vel" />
+    <remap from="/model/go2/tf" to="/tf" />
+    <remap from="/world/go2_world/model/go2/joint_state" to="/joint_states"/>
+  </node>
+
+</launch>

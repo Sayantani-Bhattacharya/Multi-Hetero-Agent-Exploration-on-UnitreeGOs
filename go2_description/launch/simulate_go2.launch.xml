@@ -1,0 +1,14 @@
+<launch>
+  <arg name="use_rviz" default="true" />
+  <!-- <arg name="world"    default="nubot_world.sdf" /> -->              <!-- No default world settigs -->
+  <include file="$(find-pkg-share go2_description)/launch/load_go2.launch.py">
+    <!-- <arg name="use_jsp" value="none" />
+    <arg name="use_rviz" value="$(var use_rviz)" /> -->
+  </include>
+
+  <include file="$(find-pkg-share go2_description)/launch/world_go2.launch.xml" >
+    <!-- <arg name="world" value="$(var world)" /> -->
+  </include>
+
+  <node pkg="ros_gz_sim" exec="create" args="-topic /robot_description -x 0.0 -z 0.0" />
+</launch>

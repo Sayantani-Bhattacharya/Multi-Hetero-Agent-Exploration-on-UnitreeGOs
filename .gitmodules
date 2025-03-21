@@ -1,0 +1,3 @@
+[submodule "unitree_go2_nav"]
+	path = unitree_go2_nav
+	url = git@github.com:Sayantani-Bhattacharya/unitree_go2_nav.git
