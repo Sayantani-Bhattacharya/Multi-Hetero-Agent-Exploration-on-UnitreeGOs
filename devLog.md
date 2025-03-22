@@ -4,6 +4,15 @@ Author: Sayantani Bhattacharya </br>
 </br>
 This DevLog documents the progress of the project, to keep track for me and as a reference to anyone else who wishes to work on something similar.
 
+## Week 10:
+#### (a) Accomplishments
+  1. Made the GO2 Exploration State Machine robust to certain edge cases.
+  2. Improved the goal reaching logic.
+  3. Added ICP based Odom calculation for Lidar.
+  4. Shot demo videos with GO1 and GO2, and individually with the sensors.
+  5. Wrote the portfolio post, Documented code and Mergerd branches.
+
+
 ## Week 9:
 
 #### (a) Accomplishments
@@ -49,7 +58,10 @@ This DevLog documents the progress of the project, to keep track for me and as a
 ## Week6:
 
 #### (a) Accomplishments
-  1. Completed and Tested the Visual SLAM and Autonomous Exploration for GO1. 
+  1. Completed and Tested the Visual SLAM and Autonomous Exploration for GO1.
+     
+#### (b) Unresolved Problems:
+  1. ssh Middleman Attack Issue with GO2.
 
 ## Week5:
 
