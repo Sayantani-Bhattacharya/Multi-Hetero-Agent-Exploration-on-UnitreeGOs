@@ -19,17 +19,30 @@ fastest possible speed. Agents would be aware of each-other’s presence and wor
 </p>
  
 
-2. Individual cluster:</br>
+<!-- 2. Individual cluster:</br>
     (subject to modifications) </br>
     <p align="right">
      <img src="/images/indv_block.png" alt="Alt text" width="700"/>
+    </p> -->
+
+2. System Architecture of GO2:</br>
+    (subject to modifications) </br>
+    <p align="right">
+     <img src="/images/go2.png" alt="Alt text" width="700"/>
     </p>
+
+3. System Architecture of GO1:</br>
+    (subject to modifications) </br>
+    <p align="right">
+     <img src="/images/go1.png" alt="Alt text" width="700"/>
+    </p>
+
 
 ## Tools and References:
 
 ### Hardware:
-  - Unitree GO1-GO2.
-  - Zed Camera/ Lidar (Need to confirm).
+  - Unitree GO1 & GO2.
+  - Zed 2i Camera & On-board 4D Lidar.
   - Jetson Orin Nano.
   - buck-convertor (24V->12V).
   - 3D print the mount for unitree.
@@ -39,12 +52,13 @@ fastest possible speed. Agents would be aware of each-other’s presence and wor
 
 ### Software : 
   - C++
-  - ROS2
+  - ROS2 Jazzy and Humble
   - Python
   - Unitree SDK - GO1 and GO2
-  - Slam, RTabMap, gmapping and Nav2 pkg
+  - Zed SDK
+  - Slam, RTabMap, and Nav2 pkg
 
-### Reference repositories:
+<!-- ### Reference repositories:
   - Unitree Package abstracted layer developed by Nick Morales, Marno Nel, and Katie Hughes:  https://github.com/ngmor/unitree_nav 
   - Unitree ros2 wrapper: https://github.com/katie-hughes/unitree_ros2 
   - Visual slam route: https://github.com/GogiPuttar/Search-and-Rescue_Robot_Dog_Unitree_Go1
