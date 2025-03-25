@@ -4,17 +4,15 @@ Author: Sayantani Bhattacharya
 
 ## Project Overview
 
-To build a swarm of quadrupeds, capable of collaborative exploration missions, in hazardous/dangerous terrains.
-Quadrupeds are ideal for moving in uneven areas like mines, forests, etc and thus chosen for the task. The aim is to 
-build a system that performs localization, mapping, navigation and attention detection (can be a human/hazard prone area, 
-depending on the task). Each quadruped would have these capabilities, and would also have the ability to merge the 
-information from the agents in its vicinity (decentralized), to make a more robust system, and explore an area at the 
-fastest possible speed. Agents would be aware of each-other’s presence and work in collaboration with each other.
+In times of disaster, every second counts, and reaching survivors in hazardous terrains poses significant challenges. Imagine a coordinated team of agile, four-legged robots, working together to navigate treacherous environments like dense forests or mines. These quadrupedal robots autonomously perform simultaneous localization and mapping (SLAM), creating real-time detailed maps of their surroundings. By employing decentralized collaborative system, these robots can share and merge their individual maps, creating a comprehensive understanding of the complete area without relying on a central system. This approach enhances the robustness and speed of search operations, as the failure of a single unit does not compromise the entire mission. Quadrupeds inherently work well in uneven terrains, and harnessing the strengths of SLAM to explore unmapped areas with LIDAR and Visual-Inertial sensor data, these robotic swarms represent a leap forward in disaster response, offering hope and assistance when it’s needed most. By all means this is just the first iteration and needs good work for being deployable onsite.
+</br>
+For more details about the project plese refer my [Portfolio Post](https://sayantani-bhattacharya.github.io/posts/quadruped-fleet/)
+
 
 ## Block diagram
 
 1. Complete system:</br>
-<p align="right">
+<p align="center">
   <img src="/images/system_block.png" alt="Alt text" width="700"/>
 </p>
  
@@ -26,14 +24,12 @@ fastest possible speed. Agents would be aware of each-other’s presence and wor
     </p> -->
 
 2. System Architecture of GO2:</br>
-    (subject to modifications) </br>
-    <p align="right">
+    <p align="center">
      <img src="/images/go2.png" alt="Alt text" width="700"/>
     </p>
 
 3. System Architecture of GO1:</br>
-    (subject to modifications) </br>
-    <p align="right">
+    <p align="center">
      <img src="/images/go1.png" alt="Alt text" width="700"/>
     </p>
 
