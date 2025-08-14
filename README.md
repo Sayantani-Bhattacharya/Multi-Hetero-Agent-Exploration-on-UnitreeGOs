@@ -6,7 +6,7 @@ Author: Sayantani Bhattacharya
 
 In times of disaster, every second counts, and reaching survivors in hazardous terrains poses significant challenges. Imagine a coordinated team of agile, four-legged robots, working together to navigate treacherous environments like dense forests or mines. These quadrupedal robots autonomously perform simultaneous localization and mapping (SLAM), creating real-time detailed maps of their surroundings. By employing decentralized collaborative system, these robots can share and merge their individual maps, creating a comprehensive understanding of the complete area without relying on a central system. This approach enhances the robustness and speed of search operations, as the failure of a single unit does not compromise the entire mission. Quadrupeds inherently work well in uneven terrains, and harnessing the strengths of SLAM to explore unmapped areas with LIDAR and Visual-Inertial sensor data, these robotic swarms represent a leap forward in disaster response, offering hope and assistance when it’s needed most. By all means this is just the first iteration and needs good work for being deployable onsite.
 </br>
-For more details about the project plese refer my [Portfolio Post](https://sayantani-bhattacharya.github.io/posts/quadruped-fleet/)
+For more details about the project please refer my [Portfolio Post](https://sayantani-bhattacharya.github.io/posts/quadruped-fleet/)
 
 
 ## Block diagram
